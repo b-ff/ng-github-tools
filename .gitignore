@@ -1,0 +1,7 @@
+src/app/resources/i18n.json
+.idea
+node_modules
+coverage
+.DS_Store
+.vscode
+*.log

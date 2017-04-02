@@ -1,0 +1,33 @@
+{
+  "name": "ng-github-tools",
+  "version": "1.0.0",
+  "description": "AngularJS 1.* module for work with GitHub API",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "AngularJS",
+    "GitHub",
+    "GitHub",
+    "API"
+  ],
+  "author": "Vyacheslav B-ff <networmx128bit@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.6.4"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-airbnb-base": "^11.1.2",
+    "eslint-plugin-import": "^2.2.0",
+    "webpack": "^2.3.2"
+  }
+}
