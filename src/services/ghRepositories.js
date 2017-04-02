@@ -6,7 +6,7 @@
     let _req;
 
     class ghRepositoriesServiceClass {
-        constructor($ghRequestService) {
+        constructor ($ghRequestService) {
             _req = $ghRequestService;
         }
 
@@ -20,9 +20,9 @@
          *
          * https://developer.github.com/v3/repos/#list-your-repositories
          *
-         * @returns $q
+         * @returns {Promise}
          */
-        getCurrentUserRepos() {
+        getCurrentUserRepos () {
             return _req.getAsPossible('user/repos');
         }
 
@@ -33,9 +33,9 @@
          *
          * @param username {String} - username (login) of the user
          *
-         * @returns $q
+         * @returns {Promise}
          */
-        getUserRepos(username) {
+        getUserRepos (username) {
             return _req.getAsPossible(`users/${username}/repos`);
         }
 
@@ -46,9 +46,9 @@
          *
          * @param orgName {String} - organization name
          *
-         * @returns $q
+         * @returns {Promise}
          */
-        getOrganizationRepos(orgName) {
+        getOrganizationRepos (orgName) {
             return _req.getAsPossible(`orgs/${orgName}/repos`);
         }
 
@@ -61,9 +61,9 @@
          *
          * https://developer.github.com/v3/repos/#list-all-public-repositories
          *
-         * @returns $q
+         * @returns {Promise}
          */
-        getAllPublicRepos() {
+        getAllPublicRepos () {
             return _req.getAsPossible('repositories');
         }
 
@@ -85,9 +85,9 @@
          * @param repositoryData.gitignore_template {String} - Desired language or platform .gitignore template (https://github.com/github/gitignore) to apply. Use the name of the template without the extension. For example, "Haskell".
          * @param repositoryData.license_template {String} - Desired LICENSE template (https://github.com/github/choosealicense.com) to apply. Use the name of the template (https://github.com/github/choosealicense.com/tree/gh-pages/_licenses) without the extension. For example, "mit" or "mozilla".
          *
-         * @returns $q
+         * @returns {Promise}
          */
-        createUserRepository(repositoryData) {
+        createUserRepository (repositoryData) {
             return _req.sendAuthorized('POST', 'user/repos', repositoryData);
         }
 
@@ -100,9 +100,9 @@
          * @param organizationName {String} - the name of organization where you plan to create repo
          * @param repositoryData {Object} - repository data, format is the same as in createUserRepository() method
          *
-         * @returns $q
+         * @returns {Promise}
          */
-        createOrgRepository(organizationName, repositoryData) {
+        createOrgRepository (organizationName, repositoryData) {
             return _req.sendAuthorized('POST', `orgs/${organizationName}/repos`, repositoryData);
         }
 
@@ -113,9 +113,9 @@
          *
          * @param ownerName {String} - username (login) of repo owner
          * @param repositoryName {String} - repository name
-         * @returns $q
+         * @returns {Promise}
          */
-        getRepository(ownerName, repositoryName) {
+        getRepository (ownerName, repositoryName) {
             return _req.getAsPossible(`repos/${ownerName}/${repositoryName}`);
         }
 
@@ -134,9 +134,9 @@
          * @param repositoryData.has_downloads {boolean} - Either true to enable downloads for this repository, false to disable them. Default: true
          * @param repositoryData.default_branch {String} - Updates the default branch for this repository.
          *
-         * @returns {*}
+         * @returns {Promise}
          */
-        editRepository(ownerName, repositoryName, repositoryData) {
+        editRepository (ownerName, repositoryName, repositoryData) {
             return _req.sendAuthorized('PATCH', `repos/${ownerName}/${repositoryName}`, repositoryData);
         }
 
@@ -155,9 +155,9 @@
          *
          * @param ownerName {String} - username (login) of repo owner
          * @param repositoryName - {String} repository name
-         * @returns $q
+         * @returns {Promise}
          */
-        getRepoContributors(ownerName, repositoryName) {
+        getRepoContributors (ownerName, repositoryName) {
             return _req.getAsPossible(`repos/${ownerName}/${repositoryName}/contributors`);
         }
 
@@ -169,9 +169,9 @@
          *
          * @param ownerName {String} - username (login) of repo owner
          * @param repositoryName - {String} repository name
-         * @returns $q
+         * @returns {Promise}
          */
-        getRepoLanguages(ownerName, repositoryName) {
+        getRepoLanguages (ownerName, repositoryName) {
             return _req.getAsPossible(`repos/${ownerName}/${repositoryName}/languages`);
         }
 
@@ -182,9 +182,9 @@
          *
          * @param ownerName {String} - username (login) of repo owner
          * @param repositoryName - {String} repository name
-         * @returns $q
+         * @returns {Promise}
          */
-        getRepoTeams(ownerName, repositoryName) {
+        getRepoTeams (ownerName, repositoryName) {
             return _req.getAsPossible(`repos/${ownerName}/${repositoryName}/teams`);
         }
 
@@ -195,9 +195,9 @@
          *
          * @param ownerName {String} - username (login) of repo owner
          * @param repositoryName - {String} repository name
-         * @returns $q
+         * @returns {Promise}
          */
-        getRepoTags(ownerName, repositoryName) {
+        getRepoTags (ownerName, repositoryName) {
             return _req.getAsPossible(`repos/${ownerName}/${repositoryName}/tags`);
         }
 
@@ -208,9 +208,9 @@
          *
          * @param ownerName {String} - username (login) of repo owner
          * @param repositoryName - {String} repository name
-         * @returns $q
+         * @returns {Promise}
          */
-        deleteRepository(ownerName, repositoryName) {
+        deleteRepository (ownerName, repositoryName) {
             return _req.sendAuthorized('DELETE', `repos/${ownerName}/${repositoryName}`);
         }
     }

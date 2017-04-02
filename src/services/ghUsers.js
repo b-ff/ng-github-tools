@@ -3,27 +3,39 @@
  */
 
 (() => {
-
     let _req;
 
     class ghUsersServiceClass {
-        constructor($ghRequestService) {
+        constructor ($ghRequestService) {
             _req = $ghRequestService;
         }
 
-        getUserByUsername(username) {
+        /**
+         *
+         * @param {string} username
+         * @returns {Promise}
+         */
+        getUserByUsername (username) {
             return _req.getAsPossible('users/' + username);
         }
 
-        getCurrentUser() {
+        /**
+         * Get information about currently authorized user
+         * @returns {Promise}
+         */
+        getCurrentUser () {
             return _req.getAsPossible('user');
         }
 
-        getAllUsers(since) {
+        /**
+         * Get list of all users
+         * @param {string} since - The integer ID of the last User that you've seen
+         * @returns {Promise}
+         */
+        getAllUsers (since) {
             return _req.getAsPossible('users', { since });
         }
     }
 
     angular.module('ngGitHubTools').service('$ghUsersService', ['$ghRequestService', ghUsersServiceClass]);
-
 })();

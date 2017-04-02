@@ -6,7 +6,7 @@
     let _req;
 
     class ghBranchesServiceClass {
-        constructor($ghRequestService) {
+        constructor ($ghRequestService) {
             _req = $ghRequestService;
         }
 
@@ -17,9 +17,9 @@
          *
          * @param ownerName {String} - username (login) of the repo owner
          * @param repositoryName {String} - name of the repository
-         * @returns $q
+         * @returns {Promise}
          */
-        getBranches(ownerName, repositoryName) {
+        getBranches (ownerName, repositoryName) {
             return _req.getAsPossible(`repos/${ownerName}/${repositoryName}/branches`);
         }
 
@@ -31,9 +31,9 @@
          * @param ownerName {String} - username (login) of the repo owner
          * @param repositoryName {String} - name of the repository
          * @param branchName {String} - name of the branch
-         * @returns $q
+         * @returns {Promise}
          */
-        getBranch(ownerName, repositoryName, branchName) {
+        getBranch (ownerName, repositoryName, branchName) {
             return _req.getAsPossible(`repos/${ownerName}/${repositoryName}/branches/${branchName}`);
         }
     }

@@ -11,6 +11,10 @@ At this moment it can:
 * CRUD operations for files in repository
 
 ## Getting Started
+* Install `ng-github-tools` via npm:
+```sh
+npm i ng-github-tools --save
+```
 
 * Load module to your source, for example like this (Webpack way):
 ```javascript
