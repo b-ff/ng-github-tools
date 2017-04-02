@@ -1,6 +1,6 @@
 {
   "name": "ng-github-tools",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AngularJS 1.* module for work with GitHub API",
   "author": "Vyacheslav B-ff <networmx128bit@gmail.com>",
   "license": "ISC",
