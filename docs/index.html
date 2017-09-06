@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-github-tools</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+</head>
+<body ng-app="DemoApp" ng-controller="DemoController as $ctrl">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 p-3 border border-light border-top-0 border-left-0 border-bottom-0">
+                <div class="list-group" id="myList" role="tablist">
+                    <a class="border-0 rounded list-group-item list-group-item-action active" data-toggle="list" href="#demo" role="tab">Demo</a>
+                    <a class="border-0 rounded list-group-item list-group-item-action text-secondary" data-toggle="list" href="#profile" role="tab">TBD</a>
+                    <a class="border-0 rounded list-group-item list-group-item-action text-secondary" data-toggle="list" href="#messages" role="tab">TBD</a>
+                    <a class="border-0 rounded list-group-item list-group-item-action text-secondary" data-toggle="list" href="#settings" role="tab">TBD</a>
+                </div>
+            </div>
+            <div class="col-8 p-3 tab-content">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="demo" role="tabpanel">
+                        <h2 class="display-4">Demo</h2>
+                        <form class="py-5">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">@</div>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="inlineFormInputGroup"
+                                        placeholder="username"
+                                        ng-model="$ctrl.username">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button
+                                    type="button"
+                                    class="btn btn-outline-secondary"
+                                    ng-click="$ctrl.getUserInfo()"
+                                    ng-disabled="!$ctrl.username">
+                                    Get Info
+                                </button>
+                                <button
+                                    type="button"
+                                    class="btn btn-outline-secondary"
+                                    ng-click="$ctrl.getRepositoriesList()"
+                                    ng-disabled="!$ctrl.username">
+                                    Get Repositories
+                                </button>
+                            </div>
+                        </form>
+
+                        <div ng-if="$ctrl.user.login" class="pb-3">
+                            <h3 class="pb-3">Personal Information:</h3>
+                            <div class="row pb-3">
+                                <div class="col-5">
+                                    <img
+                                        ng-src="{{ $ctrl.user.avatar_url }}"
+                                        alt="{{ $ctrl.user.login }}"
+                                        class="img-thumbnail img-fluid">
+                                </div>
+                                <div class="col">
+                                    <h4>@{{ $ctrl.user.login }}</h4>
+                                    <h3>
+                                        {{ $ctrl.user.name }}
+                                        <br>
+                                        <small class="text-secondary">{{ $ctrl.user.location }}</small>
+                                    </h3>
+
+                                    <div class="row py-4">
+                                        <div class="col text-center border border-secondary border-top-0 border-left-0 border-bottom-0">
+                                            <strong class="text-secondary">Repos</strong>
+                                            <div class="display-4 py-2">
+                                                {{ $ctrl.user.public_repos }}
+                                            </div>
+                                        </div>
+                                        <div class="col text-center border border-secondary border-top-0 border-left-0 border-bottom-0">
+                                            <strong class="text-secondary">Gists</strong>
+                                            <div class="display-4 py-2">
+                                                {{ $ctrl.user.public_gists }}
+                                            </div>
+                                        </div>
+                                        <div class="col text-center border border-secondary border-top-0 border-left-0 border-bottom-0">
+                                            <strong class="text-secondary">Followers</strong>
+                                            <div class="display-4 py-2">
+                                                {{ $ctrl.user.followers }}
+                                            </div>
+                                        </div>
+                                        <div class="col text-center">
+                                            <strong class="text-secondary">Following</strong>
+                                            <div class="display-4 py-2">
+                                                {{ $ctrl.user.following }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="lead" ng-if="$ctrl.user.bio">
+                                        {{ $ctrl.user.bio }}
+                                    </p>
+                                    <div class="py-4">
+                                        <a ng-href="{{ $ctrl.user.blog }}"
+                                           target="_blank"
+                                           ng-if="$ctrl.user.blog"
+                                           class="btn btn-outline-secondary">
+                                            Visit Website
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="$ctrl.repositoriesList.length" class="pb-3">
+                            <h3 class="pb-3">Repositories:</h3>
+                            <div id="accordion" role="tablist">
+                                <div class="card repository" ng-repeat="repo in $ctrl.repositoriesList">
+                                    <div class="card-header" role="tab" id="repo-{{ $index }}">
+                                        <h5 class="mb-0">
+                                            <a data-toggle="collapse" ng-href="#collapse-repo-{{ $index }}" aria-expanded="false" aria-controls="collapseOne">
+                                                {{ repo.full_name }}
+                                            </a>
+                                        </h5>
+                                    </div>
+
+                                    <div id="collapse-repo-{{ $index }}" class="collapse" role="tabpanel" aria-labelledby="repo-{{ $index }}" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col text-center">
+                                                    <strong class="text-secondary">Watchers</strong>
+                                                    <div class="display-4 py-2">
+                                                        {{ repo.watchers_count }}
+                                                    </div>
+                                                </div>
+                                                <div class="col text-center">
+                                                    <strong class="text-secondary">Stars</strong>
+                                                    <div class="display-4 py-2">
+                                                        {{ repo.stargazers_count }}
+                                                    </div>
+                                                </div>
+                                                <div class="col text-center">
+                                                    <strong class="text-secondary">Forks</strong>
+                                                    <div class="display-4 py-2">
+                                                        {{ repo.forks_count }}
+                                                    </div>
+                                                </div>
+                                                <div class="col text-center">
+                                                    <strong class="text-secondary">Issues</strong>
+                                                    <div class="display-4 py-2">
+                                                        {{ repo.open_issues_count }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <p class="lead">
+                                                {{ repo.description }}
+                                            </p>
+                                            <div class="py-4">
+                                                <div class="row pb-1">
+                                                    <span class="col col-3 text-secondary">Type:</span>
+                                                    <strong class="col">{{ repo.private ? 'Private' : 'Public' }}</strong>
+                                                </div>
+                                                <div class="row pb-1">
+                                                    <span class="col col-3 text-secondary">Created:</span>
+                                                    <span class="col">{{ repo.created_at | date }}</span>
+                                                </div>
+                                                <div class="row pb-1">
+                                                    <span class="col col-3 text-secondary">Last changed:</span>
+                                                    <span class="col">{{ repo.updated_at | date }}</span>
+                                                </div>
+                                                <div class="row pb-1">
+                                                    <span class="col col-3 text-secondary">Pushed:</span>
+                                                    <span class="col">{{ repo.pushed_at | date }}</span>
+                                                </div>
+                                                <div class="row pb-1">
+                                                    <span class="col col-3 text-secondary">Language:</span>
+                                                    <span class="col">{{ repo.language }}</span>
+                                                </div>
+                                                <div class="row pb-1">
+                                                    <span class="col col-3 text-secondary">Default branch:</span>
+                                                    <span class="col">{{ repo.default_branch }}</span>
+                                                </div>
+
+                                                <div class="py-4 form-inline">
+                                                    <div class="btn-group mr-2" data-toggle="buttons">
+                                                        <label
+                                                            class="btn btn-secondary"
+                                                            ng-class="{'active': repo.cloneUrlType === 'ssh' || !repo.cloneUrlType}"
+                                                            ng-click="repo.cloneUrlType = 'ssh'">
+                                                            <input type="radio" name="cloneUrlType" ng-checked="repo.cloneUrlType === 'ssh' || !repo.cloneUrlType"> SSH
+                                                        </label>
+                                                        <label class="btn btn-secondary"
+                                                               ng-class="{'active': repo.cloneUrlType === 'https'}"
+                                                               ng-click="repo.cloneUrlType = 'https'">
+                                                            <input type="radio" name="cloneUrlType" ng-checked="repo.cloneUrlType === 'https'"> HTTPS
+                                                        </label>
+                                                    </div>
+                                                    <input type="text" disabled class="form-control col" ng-if="repo.cloneUrlType === 'ssh' || !repo.cloneUrlType" ng-model="repo.clone_url">
+                                                    <input type="text" disabled class="form-control col" ng-if="repo.cloneUrlType === 'https'" ng-model="repo.ssh_url">
+                                                </div>
+                                            </div>
+                                            <p>
+                                                <a ng-href="{{ repo.homepage }}" target="_blank" class="btn btn-outline-secondary" ng-if="repo.homepage">Home Page</a>
+                                                <a ng-href="{{ repo.html_url }}" target="_blank" class="btn btn-outline-secondary">See on GitHub</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="profile" role="tabpanel">
+                        <h2 class="display-4 text-secondary">TBD #1</h2>
+                    </div>
+                    <div class="tab-pane" id="messages" role="tabpanel">
+                        <h2 class="display-4 text-secondary">TBD #2</h2>
+                    </div>
+                    <div class="tab-pane" id="settings" role="tabpanel">
+                        <h2 class="display-4 text-secondary">TBD #3</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="../dist/ng-github-tools.min.js"></script>
+    <script src="demoApp.js"></script>
+</body>
+</html>
